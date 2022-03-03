@@ -6,7 +6,7 @@ const md5 = require("md5")
 const utils = require("../src/utils")
 
 router.get('/', function (req, res, next) {
-  res.send('respond with a resource test');
+  res.send('respond with a resource test again');
 });
 
 router.get('/check-token', async function (req, res) {
