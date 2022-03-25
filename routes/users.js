@@ -129,4 +129,23 @@ router.get('/get-account', async function (req, res) {
   }
 });
 
+router.post('/social-auth', async function (req, res) {
+  let response = await userHelper.socialSignup(req.body)
+  if (response?.email) {
+    let token = await generateToken(response)
+    res.status(200).send({
+      success: true,
+      token: token,
+      data: response
+    })
+  }
+  else {
+    res.send({
+      status: false,
+      message: response,
+      status: 403
+    })
+  }
+})
+
 module.exports = router;

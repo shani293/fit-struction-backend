@@ -101,30 +101,24 @@ module.exports = {
       let dbo = await conn;
       dbo.collection("users").find({ email: user.email }).toArray(async function (err, res) {
         if (res.length > 0) {
-          if (res[0].source == user.source) {
-            dbo.collection("users").findOne({ _id: new ObjectId(res._id) }, { projection: { password: 0 } }, async function (error, response) {
-              if (error) {
-                resolve("Error!")
-              }
-              else {
-                resolve(response)
-              }
-            })
-          }
-          else {
-            resolve("Email associated with another account!")
-          }
+          resolve(res)
         }
         else {
-          user["createdAt"] = moment().toISOString()
-          dbo.collection("users").insertOne(user, function (err, resp) {
+          let userObject = utils.userObject()
+          userObject.email = user.email
+          userObject.login_type = user.login_type
+          userObject.account_state = "onboard"
+          userObject.profile_picture = user.profile_picture
+          userObject.created_at = moment().toISOString()
+          userObject.updated_at = moment().toISOString()
+          dbo.collection("users").insertOne(userObject, function (err, resp) {
             if (err) {
-              resolve("DB Error!")
+              resolve("Something went wrong")
             }
             else {
               dbo.collection("users").findOne({ _id: new ObjectId(resp.insertedId) }, { projection: { password: 0 } }, async function (err1, result) {
                 if (err1) {
-                  resolve("Error!")
+                  resolve("Something went wrong")
                 }
                 else {
                   resolve(result)

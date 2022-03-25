@@ -13,6 +13,7 @@ module.exports = {
             weight: null,
             fitness_goal: null,
             rate_of_weight: null,
+            bmr: null,
             meals_per_day: null,
             fruit_per_day: null,
             weekly_plan_time: null,
@@ -23,7 +24,8 @@ module.exports = {
             food_prefrences: null,
             account_state: null,
             created_at: null,
-            updated_at: null
+            updated_at: null,
+            profile_picture: null
         }
         return userObject
     },
