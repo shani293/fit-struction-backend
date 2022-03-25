@@ -121,7 +121,7 @@ module.exports = {
                   resolve("Something went wrong")
                 }
                 else {
-                  resolve(result)
+                  resolve([result])
                 }
               })
             }
