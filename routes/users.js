@@ -69,7 +69,7 @@ router.post('/update-account', async function (req, res) {
   let token = req.headers.authorization.split(" ")[1]
   let verifyToken = await utils.verifyJwtToke(token)
   if (verifyToken?.data) {
-    let user_id = verifyToken?.data?._id
+    let user_id = verifyToken?.data?.[0]?._id
     let response = await userHelper.updateAccount(user_id, req.body)
     if (response?._id) {
       res.status(200).send({
