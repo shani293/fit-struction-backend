@@ -97,7 +97,7 @@ router.get('/get-account', async function (req, res) {
   if (token) {
     let verifyToken = await utils.verifyJwtToke(token)
     if (verifyToken?.data) {
-      let user_id = verifyToken?.data?._id
+      let user_id = verifyToken?.data?.[0]?._id
       let response = await userHelper.getAccount(user_id)
       if (response?._id) {
         let token = await generateToken(response)
@@ -131,12 +131,12 @@ router.get('/get-account', async function (req, res) {
 
 router.post('/social-auth', async function (req, res) {
   let response = await userHelper.socialSignup(req.body)
-  if (response?.email) {
+  if (response?.[0]?.email) {
     let token = await generateToken(response)
     res.status(200).send({
       success: true,
       token: token,
-      data: response
+      data: response?.[0]
     })
   }
   else {
