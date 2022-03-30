@@ -103,7 +103,13 @@ router.get('/get-account', async function (req, res) {
   if (token) {
     let verifyToken = await utils.verifyJwtToke(token)
     if (verifyToken?.data) {
-      let user_id = verifyToken?.data?.[0]?._id
+      let user_id;
+      if (Array.isArray(verifyToken?.data)) {
+        user_id = verifyToken?.data?.[0]?._id
+      }
+      else {
+        user_id = verifyToken?.data?._id
+      }
       let response = await userHelper.getAccount(user_id)
       if (response?._id) {
         let token = await generateToken(response)
