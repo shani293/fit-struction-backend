@@ -18,14 +18,14 @@ module.exports = {
             fruit_per_day: null,
             weekly_plan_time: null,
             calorie_intake: null,
-            location: null,
-            latitude: null,
-            longitude: null,
-            food_prefrences: null,
+            proteins: null,
+            carbohydrates: null,
+            fruits: null,
             account_state: null,
             created_at: null,
             updated_at: null,
-            profile_picture: null
+            profile_picture: null,
+            user_meal_plan: null
         }
         return userObject
     },
