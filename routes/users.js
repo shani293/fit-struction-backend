@@ -144,7 +144,7 @@ router.get('/get-account', async function (req, res) {
 router.post('/social-auth', async function (req, res) {
   let response = await userHelper.socialSignup(req.body)
   if (response?.[0]?.email) {
-    let token = await generateToken(response)
+    let token = await generateToken(response[0])
     res.status(200).send({
       success: true,
       token: token,

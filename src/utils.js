@@ -25,7 +25,8 @@ module.exports = {
             created_at: null,
             updated_at: null,
             profile_picture: null,
-            user_meal_plan: null
+            user_meal_plan: null,
+            meal_plan_generate_day: null
         }
         return userObject
     },
