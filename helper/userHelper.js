@@ -100,6 +100,7 @@ module.exports = {
     return new Promise(async (resolve, reject) => {
       let dbo = await conn;
       dbo.collection("users").find({ email: user.email }).toArray(async function (err, res) {
+        console.log('vvv   ', res)
         if (res.length > 0) {
           resolve(res)
         }
@@ -212,6 +213,20 @@ module.exports = {
         }
       })
     })
-  }
+  },
+
+  deleteAccount: (userId) => {
+    return new Promise(async (resolve, reject) => {
+      let dbo = await conn;
+      dbo.collection("users").deleteOne({ _id: new ObjectId(userId) }, function (err, res) {
+        if (err) {
+          resolve(err)
+        }
+        else {
+          resolve(res)
+        }
+      })
+    })
+  },
 
 }

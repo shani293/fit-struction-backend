@@ -160,4 +160,37 @@ router.post('/social-auth', async function (req, res) {
   }
 })
 
+router.post('/delete-account', async function (req, res) {
+  let token = req.headers.authorization.split(" ")[1]
+  let verifyToken = await utils.verifyJwtToke(token)
+  if (verifyToken?.data) {
+    let user_id;
+    if (Array.isArray(verifyToken?.data)) {
+      user_id = verifyToken?.data?.[0]?._id
+    }
+    else {
+      user_id = verifyToken?.data?._id
+    }
+    let response = await userHelper.deleteAccount(user_id)
+    if (response?.deletedCount > 0) {
+      res.status(200).send({
+        success: true,
+        data: response
+      })
+    }
+    else {
+      res.status(401).send({
+        success: false,
+        message: response
+      })
+    }
+  }
+  else {
+    res.status(401).send({
+      success: false,
+      message: 'Invalid token'
+    })
+  }
+});
+
 module.exports = router;
