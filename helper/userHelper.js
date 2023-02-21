@@ -108,6 +108,7 @@ module.exports = {
           let userObject = utils.userObject()
           userObject.email = user.email
           userObject.login_type = user.login_type
+          userObject.user_name = user.username
           userObject.account_state = "onboard"
           userObject.profile_picture = user.profile_picture
           userObject.created_at = moment().toISOString()
