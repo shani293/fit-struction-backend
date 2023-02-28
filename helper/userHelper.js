@@ -230,4 +230,18 @@ module.exports = {
     })
   },
 
+  getUserEmails: () => {
+    return new Promise(async (resolve, reject) => {
+      let dbo = await conn;
+      dbo.collection("users").find({},{projection: {email: 1, _id: 0}}).toArray(function(err, result) {
+        if (err) {
+          reject(err)
+        }
+        else{
+          resolve(result)
+        }
+      });
+    })
+  },
+
 }

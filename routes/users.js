@@ -193,4 +193,27 @@ router.post('/delete-account', async function (req, res) {
   }
 });
 
+router.get('/get-user-emails', async function (req, res) {
+  let response = await userHelper.getUserEmails();
+  if(response?.length >= 0){
+    let emailArray = []
+    if(response?.length > 0) {
+      response.forEach(element => {
+        emailArray.push(element.email)
+      });
+    }
+    res.status(200).send({
+      success: true,
+      data: emailArray
+    })
+  }
+  else{
+    res.status(400).send({
+      success: false,
+      message: 'Something went wrong!'
+    })
+  }
+});
+
+
 module.exports = router;
